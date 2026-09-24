@@ -1237,15 +1237,6 @@ static int override_release(char __user *release, size_t len)
 {
 	int ret = 0;
 
-	/* Spoof kernel version to 5.10.0 for Android 16 bpfloader compatibility */
-	{
-		const char *spoof = "5.10.0";
-		size_t copy = min_t(size_t, len, strlen(spoof) + 1);
-		if (copy_to_user(release, spoof, copy))
-			return -EFAULT;
-		return 0;
-	}
-
 	if (current->personality & UNAME26) {
 		const char *rest = UTS_RELEASE;
 		char buf[65] = { 0 };
@@ -1268,9 +1259,6 @@ static int override_release(char __user *release, size_t len)
 	return ret;
 }
 
-#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
-extern void vndfs_spoof_uname(struct new_utsname* tmp);
-#endif
 SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
 {
 	struct new_utsname tmp;
