@@ -1237,9 +1237,9 @@ static int override_release(char __user *release, size_t len)
 {
 	int ret = 0;
 
-	/* Spoof kernel version to 5.10.0 for Android 16 bpfloader compatibility */
+	/* Spoof kernel version to 5.10.246 for Android 16/17 bpfloader compatibility */
 	{
-		const char *spoof = "5.10.0";
+		const char *spoof = "5.10.246";
 		size_t copy = min_t(size_t, len, strlen(spoof) + 1);
 		if (copy_to_user(release, spoof, copy))
 			return -EFAULT;
