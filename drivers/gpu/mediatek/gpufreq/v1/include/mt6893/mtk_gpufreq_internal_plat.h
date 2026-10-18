@@ -87,8 +87,12 @@
 /**************************************************
  * Battery Over Current Protect
  **************************************************/
+/* Nord 2 requested performance profile: retain event-driven derating at
+ * the native 745 MHz OPP, below the normal 886 MHz ceiling. This deliberately
+ * relaxes the stock electrical derating; thermal/PBM limits still apply.
+ */
 #define MT_GPUFREQ_BATT_OC_PROTECT              1
-#define MT_GPUFREQ_BATT_OC_LIMIT_FREQ           (485000)        /* KHz */
+#define MT_GPUFREQ_BATT_OC_LIMIT_FREQ           (745000)        /* KHz */
 
 /**************************************************
  * Battery Percentage Protect
@@ -100,7 +104,7 @@
  * Low Battery Volume Protect
  **************************************************/
 #define MT_GPUFREQ_LOW_BATT_VOLT_PROTECT        1
-#define MT_GPUFREQ_LOW_BATT_VOLT_LIMIT_FREQ     (485000)        /* KHz */
+#define MT_GPUFREQ_LOW_BATT_VOLT_LIMIT_FREQ     (745000)        /* KHz */
 
 /**************************************************
  * DFD Dump
