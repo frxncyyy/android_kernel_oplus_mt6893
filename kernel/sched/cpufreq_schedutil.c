@@ -1418,6 +1418,13 @@ static int sugov_init(struct cpufreq_policy *policy)
 
 	tunables->up_rate_limit_us = cpufreq_policy_transition_delay_us(policy);
 	tunables->down_rate_limit_us = cpufreq_policy_transition_delay_us(policy);
+#ifdef CONFIG_MACH_MT6893
+	/* Nord 2: react sooner to bursts, retaining the stock decay interval.
+	 * Keep the adjustment bounded; 1 us reevaluation adds scheduler work
+	 * without making this platform's hardware transition instantaneous.
+	 */
+	tunables->up_rate_limit_us = min(tunables->up_rate_limit_us, 500U);
+#endif
 
 #if defined(OPLUS_FEATURE_SCHEDUTIL_USE_TL) && defined(CONFIG_SCHEDUTIL_USE_TL)
 	tunables->target_loads = default_target_loads;
